@@ -59,6 +59,7 @@
     "esbuild",
     "kbds",
     "lucide",
+    "neondatabase",
     "nuxt"
   ]
 }
