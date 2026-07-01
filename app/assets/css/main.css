@@ -1,2 +1,59 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+/* DECKED design tokens — UNO color palette + game font.
+   Each brand color is anchored at its 500 step to the exact UNO hex:
+   Bishop #D72600 (red) · Sapphire #0956BF (blue) · Rich Mint #379711 (green) · Sporty Yellow #ECD407 (yellow).
+   ponytail: shades generated in OKLCH around the 500 anchor; regenerate via scripts/gen-palette if the anchors change. */
+@theme {
+  /* Global game font — auto-loaded by @nuxt/fonts. Swap the first family to restyle everything. */
+  --font-sans: "Fredoka", ui-sans-serif, system-ui, sans-serif;
+
+  --color-bishop-50: oklch(0.98 0.017 32.14);
+  --color-bishop-100: oklch(0.918 0.047 32.14);
+  --color-bishop-200: oklch(0.823 0.092 32.14);
+  --color-bishop-300: oklch(0.732 0.135 32.14);
+  --color-bishop-400: oklch(0.641 0.178 32.14);
+  --color-bishop-500: oklch(0.566 0.214 32.14);
+  --color-bishop-600: oklch(0.511 0.198 32.14);
+  --color-bishop-700: oklch(0.441 0.179 32.14);
+  --color-bishop-800: oklch(0.379 0.162 32.14);
+  --color-bishop-900: oklch(0.324 0.146 32.14);
+  --color-bishop-950: oklch(0.255 0.127 32.14);
+
+  --color-sapphire-50: oklch(0.98 0.014 259.04);
+  --color-sapphire-100: oklch(0.905 0.039 259.04);
+  --color-sapphire-200: oklch(0.789 0.077 259.04);
+  --color-sapphire-300: oklch(0.679 0.113 259.04);
+  --color-sapphire-400: oklch(0.569 0.149 259.04);
+  --color-sapphire-500: oklch(0.478 0.179 259.04);
+  --color-sapphire-600: oklch(0.437 0.166 259.04);
+  --color-sapphire-700: oklch(0.385 0.15 259.04);
+  --color-sapphire-800: oklch(0.339 0.135 259.04);
+  --color-sapphire-900: oklch(0.297 0.122 259.04);
+  --color-sapphire-950: oklch(0.246 0.106 259.04);
+
+  --color-mint-50: oklch(0.98 0.015 139.39);
+  --color-mint-100: oklch(0.922 0.04 139.39);
+  --color-mint-200: oklch(0.834 0.079 139.39);
+  --color-mint-300: oklch(0.75 0.116 139.39);
+  --color-mint-400: oklch(0.665 0.152 139.39);
+  --color-mint-500: oklch(0.596 0.183 139.39);
+  --color-mint-600: oklch(0.536 0.17 139.39);
+  --color-mint-700: oklch(0.461 0.153 139.39);
+  --color-mint-800: oklch(0.393 0.138 139.39);
+  --color-mint-900: oklch(0.333 0.125 139.39);
+  --color-mint-950: oklch(0.258 0.109 139.39);
+
+  --color-sporty-50: oklch(0.98 0.014 101.04);
+  --color-sporty-100: oklch(0.962 0.039 101.04);
+  --color-sporty-200: oklch(0.936 0.077 101.04);
+  --color-sporty-300: oklch(0.91 0.113 101.04);
+  --color-sporty-400: oklch(0.884 0.15 101.04);
+  --color-sporty-500: oklch(0.863 0.179 101.04);
+  --color-sporty-600: oklch(0.76 0.166 101.04);
+  --color-sporty-700: oklch(0.632 0.15 101.04);
+  --color-sporty-800: oklch(0.516 0.136 101.04);
+  --color-sporty-900: oklch(0.413 0.123 101.04);
+  --color-sporty-950: oklch(0.284 0.107 101.04);
+}
