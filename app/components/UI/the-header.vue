@@ -6,11 +6,11 @@ import AuthButton from "./auth-button.vue";
 </script>
 
 <template>
-  <UHeader to="/">
+  <UHeader to="/" :ui="{ container: 'max-w-full px-4 sm:px-6' }">
     <template #title>
       <span class="brand">
         <UIcon name="tabler:map-pins" class="brand__icon" />
-        Travel Log
+        DECKED
       </span>
     </template>
 
