@@ -3,6 +3,7 @@
     <TheHeader />
 
     <div class="dashboard-body">
+      <DashboardSidebar />
       <UMain class="dashboard-content">
         <slot />
       </UMain>
