@@ -1,6 +1,6 @@
 # DECKED
 
-Nuxt 4 app — better-auth (GitHub OAuth) + Drizzle ORM on Neon Postgres.
+Nuxt 4 app — better-auth (GitHub + Google OAuth) + Drizzle ORM on Neon Postgres.
 
 ## Setup
 
@@ -18,6 +18,7 @@ Copy `.env.example` to `.env` and fill in the values (see below).
 | `BETTER_AUTH_SECRET`                                  | random secret for better-auth                           |
 | `BETTER_AUTH_URL`                                     | app origin, e.g. `http://localhost:3000`                |
 | `AUTH_GITHUB_CLIENT_ID` / `AUTH_GITHUB_CLIENT_SECRET` | GitHub OAuth app credentials                            |
+| `AUTH_GOOGLE_CLIENT_ID` / `AUTH_GOOGLE_CLIENT_SECRET` | Google OAuth client credentials                         |
 
 ## Database
 

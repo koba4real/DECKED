@@ -5,7 +5,11 @@
    Each brand color is anchored at its 500 step to the exact UNO hex:
    Bishop #D72600 (red) · Sapphire #0956BF (blue) · Rich Mint #379711 (green) · Sporty Yellow #ECD407 (yellow).
    ponytail: shades generated in OKLCH around the 500 anchor; regenerate via scripts/gen-palette if the anchors change. */
-@theme {
+/* `static`: emit every custom color variable to :root even if no literal utility
+   (bg-sapphire-500 etc.) references it. Nuxt UI's semantic colors reach these only
+   through var(--color-…), which Tailwind's default tree-shaking can't see — without
+   `static` the palette gets dropped and bg-primary/text-primary resolve to nothing. */
+@theme static {
   /* Global game font — auto-loaded by @nuxt/fonts. Swap the first family to restyle everything. */
   --font-sans: "Fredoka", ui-sans-serif, system-ui, sans-serif;
 

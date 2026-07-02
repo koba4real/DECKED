@@ -3,7 +3,7 @@
     <UPageHero
       headline="DECKED"
       title="Welcome to DECKED"
-      description="Sign in with GitHub to get started."
+      description="Sign in to get started."
     >
       <template #links>
         <GetStartedButton />

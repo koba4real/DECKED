@@ -19,7 +19,15 @@ const items = computed<DropdownMenuItem[]>(() => [
 </script>
 
 <template>
-  <UDropdownMenu v-if="authStore.user" :items="items">
+  <UButton
+    v-if="authStore.loading && !authStore.user"
+    :color="color"
+    variant="subtle"
+    loading
+    disabled
+  />
+
+  <UDropdownMenu v-else-if="authStore.user" :items="items">
     <UButton
       variant="ghost"
       color="neutral"
@@ -39,10 +47,7 @@ const items = computed<DropdownMenuItem[]>(() => [
     :color="color"
     label="Sign in"
     variant="subtle"
-    :disabled="authStore.loading"
-    trailing-icon="tabler:brand-github"
-    :loading="authStore.loading"
-    @click="authStore.signIn"
+    to="/login"
   />
 </template>
 
