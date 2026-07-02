@@ -8,12 +8,12 @@ export const useAuthStore = defineStore("useAuthStore", () => {
   const user = computed(() => session.value?.data?.user);
   const loading = computed(() => session.value?.isPending || session.value?.isRefetching);
 
-  async function signIn() {
+  async function signIn(provider: "github" | "google") {
     try {
       const { error } = await authClient.signIn.social({
-        provider: "github",
+        provider,
         callbackURL: "/dashboard",
-        errorCallbackURL: "/error",
+        errorCallbackURL: "/login",
       });
       if (error) {
         throw new Error(error.message ?? "Unable to start sign in.");

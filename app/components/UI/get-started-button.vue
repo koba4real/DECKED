@@ -12,15 +12,15 @@ const authStore = useAuthStore();
     label="Go to dashboard"
     to="/dashboard"
     color="primary"
+    size="xl"
     trailing-icon="tabler:arrow-right"
   />
   <UButton
     v-else
-    label="Sign in with GitHub"
+    label="Sign in"
     color="primary"
-    icon="tabler:brand-github"
-    :disabled="authStore.loading"
-    :loading="authStore.loading"
-    @click="authStore.signIn"
+    size="xl"
+    trailing-icon="tabler:arrow-right"
+    to="/login"
   />
 </template>
