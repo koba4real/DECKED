@@ -1,0 +1,27 @@
+<template>
+  <UDashboardGroup :ui="{ base: 'flex-col' }">
+    <TheHeader />
+
+    <div class="dashboard-body">
+      <UMain class="dashboard-content">
+        <slot />
+      </UMain>
+    </div>
+  </UDashboardGroup>
+</template>
+
+<style scoped>
+.dashboard-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.dashboard-content {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 1.5rem 2rem;
+}
+</style>
