@@ -69,7 +69,17 @@ const providers = computed<ButtonProps[]>(() => [
       description="Choose a provider to continue."
       :providers="providers"
       class="login__form"
-    />
+    >
+      <template #footer>
+        <UButton
+          to="/"
+          label="Back to home"
+          icon="tabler:arrow-left"
+          variant="link"
+          color="neutral"
+        />
+      </template>
+    </UAuthForm>
   </div>
 </template>
 
