@@ -13,6 +13,14 @@ export const auth = betterAuth({
       generateId: false,
     },
   },
+  session: {
+    // Serve the session from a signed cookie for a short window so protected
+    // routes don't hit the DB on every request. Falls back to a DB read on miss.
+    cookieCache: {
+      enabled: true,
+      maxAge: 60,
+    },
+  },
   socialProviders: {
     github: {
       clientId: env.AUTH_GITHUB_CLIENT_ID,
