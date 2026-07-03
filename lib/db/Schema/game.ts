@@ -26,7 +26,7 @@ export const gameSession = pgTable("game_session", {
 });
 
 export const gameSessionSchema = z.object({
-  playerIds: z.array(z.number()).min(2, "Select at least 2 players"),
+  playerIds: z.array(z.number()).min(2, "Select at least 2 players").max(10, "Select at most 10 players"),
   winnerId: z.number({ error: "Select a winner" }).min(1, "Select a winner"),
   mode: z.enum(gameMode.enumValues, { error: "Select a game mode" }),
   endCondition: z.enum(endCondition.enumValues, { error: "Select an end condition" }),
