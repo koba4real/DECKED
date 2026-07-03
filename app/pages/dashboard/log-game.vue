@@ -43,11 +43,18 @@
 
 .log-game__mesh {
   position: absolute;
-  inset: -6rem -4rem auto;
-  height: 26rem;
+  inset: -7rem -5rem auto;
+  height: 28rem;
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
+  /* Feather the clip box: the blurred blobs fade out before the boundary, so
+     there's never a hard cropped edge — at any viewport width. overflow:hidden
+     stays to keep the blobs from forcing a horizontal scrollbar on mobile.
+     closest-side reaches exactly to each nearest edge, so every side fades to
+     transparent no matter the box's (wide, short) aspect ratio. */
+  -webkit-mask-image: radial-gradient(ellipse closest-side at 50% 38%, #000 36%, transparent 100%);
+  mask-image: radial-gradient(ellipse closest-side at 50% 38%, #000 36%, transparent 100%);
 }
 
 .blob {
