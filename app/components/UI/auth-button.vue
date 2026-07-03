@@ -37,6 +37,7 @@ const items = computed<DropdownMenuItem[]>(() => [
         :src="authStore.user.image ?? undefined"
         :alt="authStore.user.name"
         size="sm"
+        referrerpolicy="no-referrer"
       />
       <span class="auth-user__name">{{ authStore.user.name }}</span>
     </UButton>

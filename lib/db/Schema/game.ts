@@ -1,9 +1,20 @@
 import { integer, pgEnum, pgTable, primaryKey, timestamp } from "drizzle-orm/pg-core";
+import * as z from "zod";
 
 import { user } from "./auth";
 
 export const gameMode = pgEnum("game_mode", ["classic", "no_mercy"]);
 export const endCondition = pgEnum("end_condition", ["empty_hand", "mercy_rule"]);
+
+function toLabel(value: string) {
+  return value
+    .split("_")
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+export const gameModeOptions = gameMode.enumValues.map(value => ({ label: toLabel(value), value }));
+export const endConditionOptions = endCondition.enumValues.map(value => ({ label: toLabel(value), value }));
 
 export const gameSession = pgTable("game_session", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -13,6 +24,19 @@ export const gameSession = pgTable("game_session", {
   scoreAwarded: integer().notNull(),
   createdAt: timestamp().notNull().defaultNow(),
 });
+
+export const gameSessionSchema = z.object({
+  playerIds: z.array(z.number()).min(2, "Select at least 2 players").max(10, "Select at most 10 players"),
+  winnerId: z.number({ error: "Select a winner" }).min(1, "Select a winner"),
+  mode: z.enum(gameMode.enumValues, { error: "Select a game mode" }),
+  endCondition: z.enum(endCondition.enumValues, { error: "Select an end condition" }),
+  scoreAwarded: z.number({ error: "Enter a score" }).min(0, { error: "Score can't be negative" }).max(5000, { error: "Score can't exceed 5000" }),
+}).refine(data => data.playerIds.includes(data.winnerId), {
+  message: "Winner must be one of the selected players",
+  path: ["winnerId"],
+});
+
+export type insertGameSession = z.output<typeof gameSessionSchema>;
 
 // ponytail: minimal pivot (composite PK + cascade only); add per-player score/placement when needed.
 export const gameSessionPlayer = pgTable("game_session_player", {
