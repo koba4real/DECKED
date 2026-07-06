@@ -10,6 +10,8 @@ const { users, usersStatus } = storeToRefs(gameStore);
 const usersLoading = computed(() => usersStatus.value === "pending");
 
 const form = useTemplateRef("form");
+const loading = ref(false);
+let submitted = false;
 
 type DraftGameSession = Partial<insertGameSession> & Pick<insertGameSession, "playerIds">;
 
@@ -40,14 +42,21 @@ const { $csrfFetch } = useNuxtApp();
 
 async function onSubmit(event: FormSubmitEvent<insertGameSession>) {
   try {
+    loading.value = true;
+    submitted = true;
     await $csrfFetch("/api/game/add-game", { method: "POST", body: event.data });
     toast.add({ title: "Success", description: "The form has been submitted.", color: "success" });
+    await navigateTo("/dashboard");
   }
   catch (err) {
+    submitted = false;
     const error = err as FetchError;
     if (error.data?.data)
       form.value?.setErrors(error.data.data);
     toastError("Failed to log game", getFetchErrorMessage(error));
+  }
+  finally {
+    loading.value = false;
   }
 }
 
@@ -58,6 +67,25 @@ function resetForm() {
   state.mode = undefined;
   state.endCondition = undefined;
   state.scoreAwarded = undefined;
+}
+const showLeaveModal = ref(false);
+let leaveTo = "";
+
+onBeforeRouteLeave((to) => {
+  if (submitted || !form.value?.dirty)
+    return true;
+  leaveTo = to.fullPath;
+  showLeaveModal.value = true;
+  return false;
+});
+
+function confirmLeave() {
+  submitted = true;
+  showLeaveModal.value = false;
+  navigateTo(leaveTo);
+}
+function cancelLeave() {
+  showLeaveModal.value = false;
 }
 </script>
 
@@ -221,6 +249,7 @@ function resetForm() {
         type="submit"
         size="lg"
         icon="tabler:cards"
+        :loading="loading"
       >
         Log game
       </UButton>
@@ -235,6 +264,28 @@ function resetForm() {
       </UButton>
     </div>
   </UForm>
+  <UModal
+    v-model:open="showLeaveModal"
+    title="Unsaved changes"
+    @close="cancelLeave"
+  >
+    <template #body>
+      <p class="point-form__modal-text">
+        You have unsaved changes. Leave without saving?
+      </p>
+    </template>
+
+    <template #footer>
+      <div class="point-form__actions">
+        <UButton variant="outline" @click="cancelLeave">
+          Stay
+        </UButton>
+        <UButton color="error" @click="confirmLeave">
+          Leave
+        </UButton>
+      </div>
+    </template>
+  </UModal>
 </template>
 
 <style scoped>

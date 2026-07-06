@@ -22,6 +22,4 @@ export default defineAuthenticatedEventHandler(async (event) => {
       playerIds.map(userId => ({ gameSessionId: session.id, userId })),
     );
   });
-
-  return { ok: true };
 });
