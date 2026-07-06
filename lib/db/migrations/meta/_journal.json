@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1782830787396,
-      "tag": "0000_freezing_vermin",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1782918990490,
-      "tag": "0001_misty_thena",
+      "when": 1783339931227,
+      "tag": "0000_sudden_tarantula",
       "breakpoints": true
     }
   ]

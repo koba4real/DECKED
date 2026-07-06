@@ -6,6 +6,9 @@ export const user = pgTable("user", {
   email: text().notNull().unique(),
   emailVerified: boolean().notNull(),
   image: text(),
+  cumulativeScore: integer().notNull().default(0),
+  totalWins: integer().notNull().default(0),
+  totalLosses: integer().notNull().default(0),
   createdAt: timestamp().notNull(),
   updatedAt: timestamp().notNull(),
 });
