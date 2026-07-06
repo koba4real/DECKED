@@ -7,12 +7,7 @@ const route = useRoute();
 const authStore = useAuthStore();
 
 const navItems = computed<NavigationMenuItem[]>(() => [
-  {
-    label: "Dashboard",
-    icon: "tabler:home",
-    to: "/dashboard",
-    active: route.path === "/dashboard",
-  },
+
   {
     label: "Leaderboard",
     icon: "material-symbols-light:leaderboard-rounded",
