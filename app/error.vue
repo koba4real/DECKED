@@ -21,7 +21,7 @@ const errorMessage = props.error.statusText || props.error.message || "Unknown e
         color="neutral"
         variant="subtle"
         class="back-btn"
-        @click="clearError({ redirect: '/' })"
+        @click="clearError({ redirect: '/dashboard/leaderboard' })"
       />
     </div>
   </div>

@@ -72,7 +72,7 @@ const providers = computed<ButtonProps[]>(() => [
     >
       <template #footer>
         <UButton
-          to="/"
+          to="/dashboard/leaderboard"
           label="Back to home"
           icon="tabler:arrow-left"
           variant="link"

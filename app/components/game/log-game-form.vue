@@ -46,7 +46,7 @@ async function onSubmit(event: FormSubmitEvent<insertGameSession>) {
     submitted = true;
     await $csrfFetch("/api/game/add-game", { method: "POST", body: event.data });
     toast.add({ title: "Success", description: "The form has been submitted.", color: "success" });
-    await navigateTo("/dashboard");
+    await navigateTo("/dashboard/leaderboard");
   }
   catch (err) {
     submitted = false;
