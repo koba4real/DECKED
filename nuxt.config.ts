@@ -49,5 +49,8 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/dashboard/**": { appLayout: "dashboard" },
+    // better-auth ships its own origin/CSRF checks; nuxt-csurf's generic
+    // token check has no way to know about that and blocks every POST here.
+    "/api/auth/**": { csurf: false },
   },
 });

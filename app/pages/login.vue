@@ -10,7 +10,7 @@ const route = useRoute();
 // Skip the login screen for already-authenticated visitors.
 watchEffect(() => {
   if (authStore.user) {
-    navigateTo("/dashboard");
+    navigateTo("/dashboard/leaderboard");
   }
 });
 

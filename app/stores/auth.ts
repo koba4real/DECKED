@@ -1,6 +1,11 @@
+import type { auth, UserWithId } from "~~/lib/auth";
+
+import { inferAdditionalFields } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/vue";
 
-export const authClient = createAuthClient();
+export const authClient = createAuthClient({
+  plugins: [inferAdditionalFields<typeof auth>()],
+});
 
 export const useAuthStore = defineStore("useAuthStore", () => {
   const session = ref<Awaited<ReturnType<typeof authClient.useSession>> | null>(null);
@@ -13,14 +18,14 @@ export const useAuthStore = defineStore("useAuthStore", () => {
     session.value = data;
   }
 
-  const user = computed(() => session.value?.data?.user);
+  const user = computed(() => session.value?.data?.user as UserWithId | undefined);
   const loading = computed(() => session.value?.isPending);
 
   async function signIn(provider: "github" | "google") {
     try {
       const { error } = await authClient.signIn.social({
         provider,
-        callbackURL: "/dashboard",
+        callbackURL: "/dashboard/leaderboard",
         errorCallbackURL: "/login",
       });
       if (error) {

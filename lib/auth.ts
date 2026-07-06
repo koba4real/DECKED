@@ -1,14 +1,8 @@
-import type { User } from "better-auth";
-
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 import db from "./db/index"; // your drizzle instance
 import env from "./env";
-
-export type UserWithId = Omit<User, "id"> & {
-  id: number;
-};
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -17,6 +11,13 @@ export const auth = betterAuth({
   advanced: {
     database: {
       generateId: false,
+    },
+  },
+  user: {
+    additionalFields: {
+      cumulativeScore: { type: "number", input: false },
+      totalWins: { type: "number", input: false },
+      totalLosses: { type: "number", input: false },
     },
   },
   session: {
@@ -38,3 +39,7 @@ export const auth = betterAuth({
     },
   },
 });
+
+export type UserWithId = Omit<typeof auth.$Infer.Session.user, "id"> & {
+  id: number;
+};

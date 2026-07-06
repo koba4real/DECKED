@@ -581,7 +581,6 @@ const rivalForm = ["L", "W", "L", "W", "L"];
   position: relative;
   isolation: isolate;
   overflow-x: clip;
-  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* ------------------------------- background ------------------------------ */
@@ -635,44 +634,6 @@ const rivalForm = ["L", "W", "L", "W", "L"];
 }
 
 /* --------------------------------- eyebrow -------------------------------- */
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
-  border-radius: 9999px;
-  border: 1px solid var(--ui-border);
-  background: color-mix(in oklch, var(--ui-bg-elevated) 70%, transparent);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--ui-text-muted);
-}
-
-.eyebrow__dots {
-  display: inline-flex;
-  gap: 0.2rem;
-}
-
-.eyebrow__dots i {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 9999px;
-}
-
-.eyebrow__dots i:nth-child(1) {
-  background: var(--color-sporty-500);
-}
-.eyebrow__dots i:nth-child(2) {
-  background: var(--color-sapphire-500);
-}
-.eyebrow__dots i:nth-child(3) {
-  background: var(--color-mint-500);
-}
-.eyebrow__dots i:nth-child(4) {
-  background: var(--color-bishop-500);
-}
 
 /* ---------------------------------- title -------------------------------- */
 

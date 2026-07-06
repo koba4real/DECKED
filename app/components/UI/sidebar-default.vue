@@ -26,6 +26,8 @@ const accountItems = computed<NavigationMenuItem[]>(() => [
   {
     label: "profile",
     icon: "pajamas:profile",
+    to: "/dashboard/profile",
+    active: route.path === "/dashboard/profile",
   },
   {
     label: "Logout",

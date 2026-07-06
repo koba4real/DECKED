@@ -1,4 +1,4 @@
-import { integer, pgEnum, pgTable, primaryKey, timestamp } from "drizzle-orm/pg-core";
+import { integer, pgEnum, pgTable, timestamp } from "drizzle-orm/pg-core";
 import * as z from "zod";
 
 import { user } from "./auth";
@@ -46,17 +46,3 @@ export const gameSessionSchema = z.object({
   });
 
 export type insertGameSession = z.output<typeof gameSessionSchema>;
-
-// ponytail: minimal pivot (composite PK + cascade only); add per-player score/placement when needed.
-export const gameSessionPlayer = pgTable("game_session_player", {
-  gameSessionId: integer().notNull().references(() => gameSession.id, { onDelete: "cascade" }),
-  userId: integer().notNull().references(() => user.id, { onDelete: "cascade" }),
-}, t => [primaryKey({ columns: [t.gameSessionId, t.userId] })]);
-
-// 1:1 with user, so userId is the PK — no separate id needed.
-export const playerProfile = pgTable("player_profile", {
-  userId: integer().primaryKey().references(() => user.id, { onDelete: "cascade" }),
-  cumulativeScore: integer().notNull().default(0),
-  totalWins: integer().notNull().default(0),
-  totalLosses: integer().notNull().default(0),
-});
