@@ -1,4 +1,4 @@
-import type { auth } from "~~/lib/auth";
+import type { auth, UserWithId } from "~~/lib/auth";
 
 import { inferAdditionalFields } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/vue";
@@ -18,7 +18,7 @@ export const useAuthStore = defineStore("useAuthStore", () => {
     session.value = data;
   }
 
-  const user = computed(() => session.value?.data?.user);
+  const user = computed(() => session.value?.data?.user as UserWithId | undefined);
   const loading = computed(() => session.value?.isPending);
 
   async function signIn(provider: "github" | "google") {

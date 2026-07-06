@@ -57,6 +57,7 @@ async function onSubmit(event: FormSubmitEvent<insertGameSession>) {
   }
   finally {
     loading.value = false;
+    await gameStore.refreshUsers();
   }
 }
 
