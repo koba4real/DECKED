@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const errorMessage = (useRoute().query.error as string) || "Unknown error";
+import type { NuxtError } from "#app";
+
+const props = defineProps<{ error: NuxtError }>();
+const errorMessage = props.error.statusText || props.error.message || "Unknown error";
 </script>
 
 <template>
@@ -14,11 +17,11 @@ const errorMessage = (useRoute().query.error as string) || "Unknown error";
       />
       <UButton
         label="Go back home"
-        to="/"
         icon="tabler:arrow-left"
         color="neutral"
         variant="subtle"
         class="back-btn"
+        @click="clearError({ redirect: '/' })"
       />
     </div>
   </div>
