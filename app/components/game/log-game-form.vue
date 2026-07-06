@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { FormSubmitEvent } from "@nuxt/ui";
 import type { insertGameSession } from "~~/lib/db/Schema/game";
+import type { FetchError } from "ofetch";
 
 import { endConditionOptions, gameModeOptions, gameSessionSchema } from "~~/lib/db/Schema/game";
 
@@ -35,8 +36,19 @@ watch(() => state.playerIds, (ids) => {
 });
 
 const toast = useToast();
-async function onSubmit(_event: FormSubmitEvent<insertGameSession>) {
-  toast.add({ title: "Success", description: "The form has been submitted.", color: "success" });
+const { $csrfFetch } = useNuxtApp();
+
+async function onSubmit(event: FormSubmitEvent<insertGameSession>) {
+  try {
+    await $csrfFetch("/api/game/add-game", { method: "POST", body: event.data });
+    toast.add({ title: "Success", description: "The form has been submitted.", color: "success" });
+  }
+  catch (err) {
+    const error = err as FetchError;
+    if (error.data?.data)
+      form.value?.setErrors(error.data.data);
+    toastError("Failed to log game", getFetchErrorMessage(error));
+  }
 }
 
 function resetForm() {
@@ -164,7 +176,7 @@ function resetForm() {
         <UFormField name="endCondition">
           <template #label>
             <span class="fld">
-              <span class="fld__icon fld__icon--bishop"><UIcon name="tabler:flag-checkered" class="size-4" /></span>
+              <span class="fld__icon fld__icon--bishop"><UIcon name="tabler:flag-check" class="size-4" /></span>
               <span class="fld__text">End condition</span>
             </span>
           </template>

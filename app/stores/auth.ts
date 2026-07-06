@@ -4,6 +4,7 @@ export const authClient = createAuthClient();
 
 export const useAuthStore = defineStore("useAuthStore", () => {
   const session = ref<Awaited<ReturnType<typeof authClient.useSession>> | null>(null);
+  const gameStore = useGameStore();
 
   // Resolve the session through Nuxt's SSR-aware fetch so the user is known on
   // the server render, not just after the client hydrates. Called from app.vue.
@@ -16,7 +17,6 @@ export const useAuthStore = defineStore("useAuthStore", () => {
   const loading = computed(() => session.value?.isPending);
 
   async function signIn(provider: "github" | "google") {
-    const toast = useToast();
     try {
       const { error } = await authClient.signIn.social({
         provider,
@@ -26,19 +26,14 @@ export const useAuthStore = defineStore("useAuthStore", () => {
       if (error) {
         throw new Error(error.message ?? "Unable to start sign in.");
       }
+      await gameStore.refreshUsers();
     }
     catch (err) {
-      toast.add({
-        title: "Sign in failed",
-        description: err instanceof Error ? err.message : "Something went wrong. Please try again.",
-        color: "error",
-        icon: "tabler:alert-triangle",
-      });
+      toastError("Sign in failed", err instanceof Error ? err.message : "Something went wrong. Please try again.");
     }
   }
 
   async function signOut() {
-    const toast = useToast();
     try {
       const { error } = await authClient.signOut();
       if (error) {
@@ -47,12 +42,7 @@ export const useAuthStore = defineStore("useAuthStore", () => {
       await navigateTo("/");
     }
     catch (err) {
-      toast.add({
-        title: "Sign out failed",
-        description: err instanceof Error ? err.message : "Something went wrong. Please try again.",
-        color: "error",
-        icon: "tabler:alert-triangle",
-      });
+      toastError("Sign out failed", err instanceof Error ? err.message : "Something went wrong. Please try again.");
     }
   }
 
