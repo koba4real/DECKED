@@ -34,4 +34,5 @@ export default defineAuthenticatedEventHandler(async (event) => {
         .where(inArray(user.id, loserIds));
     }
   });
+  leaderboardSubject.notify();
 });
