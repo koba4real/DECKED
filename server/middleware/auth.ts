@@ -8,6 +8,6 @@ export default defineEventHandler(async (event) => {
   event.context.user = session?.user as unknown as UserWithId;
 
   if (event.path.startsWith("/dashboard") && !session?.user) {
-    return sendRedirect(event, "/dashboard/leaderboard", 302);
+    return sendRedirect(event, "/login", 302);
   }
 });

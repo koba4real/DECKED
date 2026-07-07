@@ -5,8 +5,11 @@ import type { FetchError } from "ofetch";
 
 import { endConditionOptions, gameModeOptions, gameSessionSchema } from "~~/lib/db/Schema/game";
 
-const gameStore = useGameStore();
-const { users, usersStatus } = storeToRefs(gameStore);
+const { data: users, status: usersStatus } = useFetch("/api/users", {
+  key: "users",
+  lazy: true,
+});
+
 const usersLoading = computed(() => usersStatus.value === "pending");
 
 const form = useTemplateRef("form");
@@ -57,7 +60,6 @@ async function onSubmit(event: FormSubmitEvent<insertGameSession>) {
   }
   finally {
     loading.value = false;
-    await gameStore.refreshUsers();
   }
 }
 
@@ -236,7 +238,6 @@ function cancelLeave() {
           v-model="state.scoreAwarded"
           :min="0"
           :max="5000"
-          :step="10"
           size="lg"
           placeholder="0"
           class="score-input"
