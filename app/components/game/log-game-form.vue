@@ -238,7 +238,6 @@ function cancelLeave() {
           v-model="state.scoreAwarded"
           :min="0"
           :max="5000"
-          :step="10"
           size="lg"
           placeholder="0"
           class="score-input"
